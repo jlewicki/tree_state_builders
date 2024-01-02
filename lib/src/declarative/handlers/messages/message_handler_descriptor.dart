@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:tree_state_builders/declarative_builders.dart';
 import 'package:tree_state_machine/tree_state_machine.dart';
 import '../../../utility.dart';
 
@@ -15,6 +15,16 @@ enum MessageHandlerType {
 }
 
 class MessageHandlerInfo {
+  final MessageHandlerType handlerType;
+  final Type messageType;
+  // In general there is at most 1 action
+  final List<MessageActionInfo> actions;
+  final Iterable<MessageConditionInfo> conditions;
+  final String? _messageName;
+  final String? label;
+  final StateKey? goToTarget;
+  final Map<String, Object>? metadata;
+
   MessageHandlerInfo(
     this.handlerType,
     this.messageType,
@@ -25,24 +35,6 @@ class MessageHandlerInfo {
     this.metadata, [
     this.goToTarget,
   ]);
-
-  /// Indicates the way in which this message handler handles a message.
-  final MessageHandlerType handlerType;
-
-  /// The type of the message that is handled by this handler.
-  final Type messageType;
-
-  /// Conditions that mi
-  final Iterable<MessageConditionInfo> conditions;
-
-  /// Metadata
-  final Map<String, Object>? metadata;
-
-  // Actions that this handler will perform when handling a message.
-  final List<MessageActionInfo> actions;
-  final String? _messageName;
-  final String? label;
-  final StateKey? goToTarget;
 
   String get messageName => _messageName ?? messageType.toString();
 }
@@ -93,4 +85,23 @@ class MessageHandlerDescriptor<C> {
       });
     };
   }
+}
+
+typedef MessageActionHandler = FutureOr<void> Function(MessageContext);
+
+class MessageActionDescriptor<M, D, C> {
+  final MessageActionInfo info;
+  final FutureOr<void> Function(MessageHandlerContext<M, D, C>) handle;
+
+  MessageActionDescriptor(this.info, this.handle);
+}
+
+typedef MessageConditionHandler = FutureOr<bool> Function(MessageContext);
+
+class MessageConditionDescriptor<M, D, C> {
+  final MessageConditionInfo info;
+  final MessageHandlerDescriptor<C> whenTrueDescriptor;
+  final FutureOr<bool> Function(MessageHandlerContext<M, D, C>) evaluate;
+
+  MessageConditionDescriptor(this.info, this.evaluate, this.whenTrueDescriptor);
 }

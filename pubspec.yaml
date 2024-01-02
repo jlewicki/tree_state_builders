@@ -1,14 +1,17 @@
 name: tree_state_builders
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: High-level APIs for constructing state trees for use with the `tree_state_machine` package.
+version: 0.5.0
+publish_to: none
 
 environment:
   sdk: ^3.2.2
 
 dependencies:
+  async: ^2.11.0
+  collection: ^1.18.0 
   logging: ^1.2.0
-  tree_state_machine: 3.0.0-dev.5
+  tree_state_machine:
+    path: ../tree_state_machine
   
 dev_dependencies:
   lints: ^3.0.0
