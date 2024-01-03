@@ -529,7 +529,7 @@ class MachineStateBuilder extends _StateBuilder {
   MessageHandlerDescriptor<void>? _disposedDescriptor;
 
   MachineStateBuilder(
-    DataStateKey<NestedMachineData> key,
+    DataStateKey<MachineTreeStateData> key,
     this._initialMachine,
     this._isDone,
     Logger log,
@@ -540,7 +540,7 @@ class MachineStateBuilder extends _StateBuilder {
   }) : super._(
           key,
           isFinal,
-          NestedMachineData,
+          MachineTreeStateData,
           codec,
           log,
           parent,
@@ -592,7 +592,7 @@ class MachineStateBuilder extends _StateBuilder {
           "Nested machine state '$key' does not have a done handler. Make sure to call onMachineDone.");
     }
 
-    return NestedMachineState(
+    return MachineTreeState(
       _initialMachine,
       (currentState) {
         _currentStateRef.value = currentState;

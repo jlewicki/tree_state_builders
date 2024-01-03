@@ -373,7 +373,7 @@ class DeclarativeStateTreeBuilder implements StateTreeBuildProvider {
   ///
   ///
   void machineState(
-    DataStateKey<NestedMachineData> stateKey,
+    DataStateKey<MachineTreeStateData> stateKey,
     InitialMachine initialMachine,
     void Function(MachineStateBuilder) build, {
     bool Function(Transition transition)? isDone,

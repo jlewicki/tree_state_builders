@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
+import 'package:tree_state_builders/declarative_builders.dart';
 import 'package:tree_state_machine/build.dart';
-import 'package:tree_state_machine/declarative_builders.dart';
 import 'package:tree_state_machine/tree_state_machine.dart';
 import 'fixture/fixture_data.dart';
 

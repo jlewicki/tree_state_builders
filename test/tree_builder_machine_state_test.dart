@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
+import 'package:tree_state_builders/declarative_builders.dart';
 import 'package:tree_state_machine/build.dart';
 import 'package:tree_state_machine/tree_state_machine.dart';
-import 'package:tree_state_machine/declarative_builders.dart';
 import 'fixture/fixture_data.dart';
 
 final Matcher throwsStateTreeDefinitionError =
     throwsA(isA<StateTreeDefinitionError>());
-final stateNestedMachine = DataStateKey<NestedMachineData>('nestedMachine');
+final stateNestedMachine = DataStateKey<MachineTreeStateData>('nestedMachine');
 
 void main() {
   group('StateTreeBuilder', () {

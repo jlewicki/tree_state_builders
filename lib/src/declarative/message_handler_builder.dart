@@ -325,8 +325,8 @@ class MessageHandlerBuilder<M, D, C> extends _MessageHandlerBuilder<M, D, C>
 /// [DeclarativeStateTreeBuilder.machineState] must transition to a new state on completion.  Therefore the
 /// methods of this builder can only be used to specifiy a transition.
 class MachineDoneHandlerBuilder<C>
-    extends _MessageHandlerBuilder<Object, NestedMachineData, C>
-    with _GoToHandlerBuilderMixin<Object, NestedMachineData, C> {
+    extends _MessageHandlerBuilder<Object, MachineTreeStateData, C>
+    with _GoToHandlerBuilderMixin<Object, MachineTreeStateData, C> {
   MachineDoneHandlerBuilder._(
     super.forState,
     super.makeContext,
@@ -336,13 +336,14 @@ class MachineDoneHandlerBuilder<C>
 
   /// Adds a conditional behavior, in the same manner as [MessageHandlerBuilder.when].
   MachineDoneWhenBuilder<C> when(
-    FutureOr<bool> Function(MessageHandlerContext<Object, NestedMachineData, C>)
+    FutureOr<bool> Function(
+            MessageHandlerContext<Object, MachineTreeStateData, C>)
         condition,
     void Function(MachineDoneHandlerBuilder<C> builder) buildTrueHandler, {
     String? label,
   }) {
     var conditions =
-        <MessageConditionDescriptor<Object, NestedMachineData, C>>[];
+        <MessageConditionDescriptor<Object, MachineTreeStateData, C>>[];
     var whenBuilder = MachineDoneWhenBuilder<C>(
       () => MachineDoneHandlerBuilder<C>._(
           _forState, _makeContext, _log, _messageName),
@@ -350,7 +351,7 @@ class MachineDoneHandlerBuilder<C>
     );
 
     whenBuilder.when(condition, buildTrueHandler, label: label);
-    descriptor = makeWhenMessageDescriptor<Object, NestedMachineData, C>(
+    descriptor = makeWhenMessageDescriptor<Object, MachineTreeStateData, C>(
       _forState,
       conditions,
       _makeContext,
@@ -363,7 +364,7 @@ class MachineDoneHandlerBuilder<C>
 
   MachineDoneWhenResultBuilder<C, T> whenResult<T>(
     FutureOr<Result<T>> Function(
-            MessageHandlerContext<Object, NestedMachineData, C>)
+            MessageHandlerContext<Object, MachineTreeStateData, C>)
         result,
     void Function(MachineDoneHandlerBuilder<T> builder) buildSuccessHandler, {
     String? label,
@@ -458,14 +459,15 @@ class MessageHandlerWhenBuilder<M, D, C> extends _MessageHandlerWhenBuilder<M,
 /// Provides methods for defining conditional behavior of a [DeclarativeStateTreeBuilder.machineState], when the
 /// nested state machine completes.
 class MachineDoneWhenBuilder<C> extends _MessageHandlerWhenBuilder<Object,
-    NestedMachineData, C, MachineDoneHandlerBuilder<C>> {
+    MachineTreeStateData, C, MachineDoneHandlerBuilder<C>> {
   MachineDoneWhenBuilder(
     super.makeBuilder,
     super.conditions,
   ) : super();
 
   MachineDoneWhenBuilder<C> when(
-    FutureOr<bool> Function(MessageHandlerContext<Object, NestedMachineData, C>)
+    FutureOr<bool> Function(
+            MessageHandlerContext<Object, MachineTreeStateData, C>)
         condition,
     void Function(MachineDoneHandlerBuilder<C> builder) buildTrue, {
     String? label,
@@ -564,12 +566,12 @@ class MessageHandlerWhenResultBuilder<M, D, C, T>
 /// context value of type [C], when a nested state machine has completted, and when a [Result] is
 /// an error value.
 class MachineDoneWhenResultBuilder<C, T>
-    extends _MessageHandlerWhenResultBuilder<Object, NestedMachineData, C, T,
+    extends _MessageHandlerWhenResultBuilder<Object, MachineTreeStateData, C, T,
         MachineDoneHandlerBuilder<T>, MachineDoneHandlerBuilder<AsyncError>> {
   MachineDoneWhenResultBuilder._(
     MachineDoneHandlerBuilder<C> parentBuilder,
     FutureOr<Result<T>> Function(
-            MessageHandlerContext<Object, NestedMachineData, C>)
+            MessageHandlerContext<Object, MachineTreeStateData, C>)
         result,
     void Function(MachineDoneHandlerBuilder<T> builder) buildSuccessHandler,
     String? label,
