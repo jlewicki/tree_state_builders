@@ -1,4 +1,4 @@
-part of '../../declarative_builders.dart';
+part of '../../declarative.dart';
 
 /// Indicates that a value of type [P] must be provided when entering a state.
 ///

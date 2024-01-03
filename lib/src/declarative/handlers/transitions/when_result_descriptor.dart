@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:async/async.dart';
 import 'package:logging/logging.dart';
-import 'package:tree_state_builders/declarative_builders.dart';
+import 'package:tree_state_builders/declarative.dart';
 import 'package:tree_state_machine/tree_state_machine.dart';
 import './transition_handler_descriptor.dart';
 import '../../../utility.dart';

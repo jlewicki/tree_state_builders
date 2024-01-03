@@ -1,4 +1,4 @@
-part of '../../declarative_builders.dart';
+part of '../../declarative.dart';
 
 class StateBuilderExtensionInfo {
   StateBuilderExtensionInfo(this.key, this.metadata, this.filters);
